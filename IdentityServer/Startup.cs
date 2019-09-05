@@ -1,12 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Reflection;
 using System.Threading.Tasks;
 using IdentityServer.Data;
+using IdentityServer.ExternalAuthenticationGrant;
+using IdentityServer.Interfaces.Processors;
+using IdentityServer.Interfaces.Providers;
+using IdentityServer.Processors;
+using IdentityServer.Providers;
+using IdentityServer.Repositories;
+using IdentityServer.Repositories.Interfaces;
 using IdentityServer.Services;
 using IdentityServer4.EntityFramework.DbContexts;
 using IdentityServer4.EntityFramework.Mappers;
+using IdentityServer4.Validation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -91,7 +100,26 @@ namespace IdentityServer
                     // this enables automatic token cleanup. this is optional.
                     options.EnableTokenCleanup = true;
                     options.TokenCleanupInterval = 30;
-                }); ;
+                });
+
+            services.AddScoped<INonEmailUserProcessor, NonEmailUserProcessor<IdentityUser>>();
+            services.AddScoped<IEmailUserProcessor, EmailUserProcessor<IdentityUser>>();
+            services.AddScoped<IExtensionGrantValidator, ExternalAuthenticationGrant<IdentityUser>>();
+            services.AddScoped<IProviderRepository, ProviderRepository>();
+            services.AddTransient<IFacebookAuthProvider, FacebookAuthProvider<IdentityUser>>();
+            services.AddTransient<IGoogleAuthProvider, GoogleAuthProvider<IdentityUser>>();
+            services.AddSingleton<HttpClient>();
+
+            services.AddCors(opts =>
+            {
+                opts.AddPolicy("CorsPolicy", builder =>
+                {
+                    builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials();
+                });
+            });
 
             services.AddAuthentication().AddGoogle(googleOptions =>
             {
@@ -125,6 +153,7 @@ namespace IdentityServer
                 app.UseHsts();
             }
 
+            app.UseCors("CorsPolicy");
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();

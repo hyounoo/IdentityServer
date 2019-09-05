@@ -37,7 +37,8 @@ namespace IdentityServer
             {
                 new ApiResource("endalgoapi", "Endalgo API", new []{ "role", "admin", "manager", "user" }),
                 new ApiResource("endalgochat", "Endalgo Chat", new []{ "name" }),
-                new ApiResource("endalgopayment", "Endalgo Payment")
+                new ApiResource("endalgopayment", "Endalgo Payment"),
+                new ApiResource("Test.WebApi","Test WebApi")
             };
         }
 
@@ -223,7 +224,31 @@ namespace IdentityServer
                     RefreshTokenUsage = TokenUsage.ReUse,
                     AccessTokenLifetime = 172800,
                 },
-
+                new Client
+                {
+                    ClientId = "Test.Client",
+                    ClientName = "LDSCore",
+                    AllowedGrantTypes = new[] {GrantType.ResourceOwnerPassword,"external"},
+                    ClientSecrets =
+                    {
+                        new Secret("secret".Sha256())
+                    },
+                    AllowedScopes = {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        IdentityServerConstants.StandardScopes.Email,
+                        "endalgoapi",
+                        "endalgochat",
+                        "Test.WebApi"
+                    },
+                    AccessTokenType = AccessTokenType.Jwt,
+                    AlwaysIncludeUserClaimsInIdToken = true,
+                    AccessTokenLifetime = 86400,
+                    AllowOfflineAccess = true,
+                    IdentityTokenLifetime = 86400,
+                    AlwaysSendClientClaims = true,
+                    Enabled = true,
+                }
             };
         }
     }
