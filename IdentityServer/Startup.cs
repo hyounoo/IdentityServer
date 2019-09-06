@@ -28,6 +28,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using SHA256Hasher;
 
 namespace IdentityServer
 {
@@ -48,6 +49,8 @@ namespace IdentityServer
         {
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
             var migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
+
+            services.AddTransient<IPasswordHasher<IdentityUser>, CustomPasswordHasher>();
 
             services.Configure<CookiePolicyOptions>(options =>
             {
