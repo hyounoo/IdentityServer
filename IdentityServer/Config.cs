@@ -99,10 +99,10 @@ namespace IdentityServer
                     },
 
                     // where to redirect to after login
-                    RedirectUris = { "http://localhost:5004/signin-oidc" },
+                    RedirectUris = { "https://localhost:5005/signin-oidc" },
 
                     // where to redirect to after logout
-                    PostLogoutRedirectUris = { "http://localhost:5004/signout-callback-oidc" },
+                    PostLogoutRedirectUris = { "https://localhost:5005/signout-callback-oidc" },
 
                     AllowedScopes = new List<string>
                     {
@@ -114,7 +114,8 @@ namespace IdentityServer
                     },
 
                     // This allows requesting refresh tokens for long lived API access
-                    AllowOfflineAccess = true
+                    AllowOfflineAccess = true,
+                    RequireConsent = false
                 },
                 // JavaScript Client
                 new Client
