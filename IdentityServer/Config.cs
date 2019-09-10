@@ -37,8 +37,7 @@ namespace IdentityServer
             {
                 new ApiResource("endalgoapi", "Endalgo API", new []{ "role", "admin", "manager", "user" }),
                 new ApiResource("endalgochat", "Endalgo Chat", new []{ "name" }),
-                new ApiResource("endalgopayment", "Endalgo Payment"),
-                new ApiResource("Test.WebApi","Test WebApi")
+                new ApiResource("endalgopayment", "Endalgo Payment")
             };
         }
 
@@ -100,10 +99,10 @@ namespace IdentityServer
                     },
 
                     // where to redirect to after login
-                    RedirectUris = { "http://localhost:5002/signin-oidc" },
+                    RedirectUris = { "http://localhost:5004/signin-oidc" },
 
                     // where to redirect to after logout
-                    PostLogoutRedirectUris = { "http://localhost:5002/signout-callback-oidc" },
+                    PostLogoutRedirectUris = { "http://localhost:5004/signout-callback-oidc" },
 
                     AllowedScopes = new List<string>
                     {
@@ -126,9 +125,9 @@ namespace IdentityServer
                     RequirePkce = true,
                     RequireClientSecret = false,
 
-                    RedirectUris =           { "http://localhost:5003/callback.html" },
-                    PostLogoutRedirectUris = { "http://localhost:5003/index.html" },
-                    AllowedCorsOrigins =     { "http://localhost:5003" },
+                    RedirectUris =           { "http://localhost:3000/callback.html" },
+                    PostLogoutRedirectUris = { "http://localhost:3000/index.html" },
+                    AllowedCorsOrigins =     { "http://localhost:3000" },
 
                     AllowedScopes =
                     {
@@ -138,116 +137,6 @@ namespace IdentityServer
                         "endalgoapi",
                         "endalgochat"
                     }
-                },
-
-                // Admin
-                new Client
-                {
-                    ClientId = "endalgo.admin",
-                    ClientName = "Endalgo Admin",
-                    AllowedGrantTypes = GrantTypes.HybridAndClientCredentials,
-
-                    RequireConsent = false,
-
-                    ClientSecrets =
-                    {
-                        new Secret("secret".Sha256())
-                    },
-
-                    RedirectUris =           { "https://admin.endalgo.com/signin-oidc" },
-                    PostLogoutRedirectUris = { "https://admin.endalgo.com/signout-callback-oidc" },
-
-                    AllowedScopes =
-                    {
-                        IdentityServerConstants.StandardScopes.OpenId,
-                        IdentityServerConstants.StandardScopes.Profile,
-                        IdentityServerConstants.StandardScopes.Email,
-                        "endalgoapi",
-                        "roles"
-                    },
-                    AllowOfflineAccess = true
-                },
-
-                // Admin local
-                new Client
-                {
-                    ClientId = "endalgo.admin local",
-                    ClientName = "Endalgo Admin Local",
-                    AllowedGrantTypes = GrantTypes.HybridAndClientCredentials,
-
-                    RequireConsent = false,
-
-                    ClientSecrets =
-                    {
-                        new Secret("secret".Sha256())
-                    },
-
-                    RedirectUris =           { "https://localhost:5004/signin-oidc" },
-                    PostLogoutRedirectUris = { "https://localhost:5004/signout-callback-oidc" },
-
-                    AllowedScopes =
-                    {
-                        IdentityServerConstants.StandardScopes.OpenId,
-                        IdentityServerConstants.StandardScopes.Profile,
-                        IdentityServerConstants.StandardScopes.Email,
-                        "endalgoapi",
-                        "roles"
-                    },
-                    AllowOfflineAccess = true
-                },
-
-                // Native application client
-                new Client
-                {
-                    ClientId = "com.endalgo.app",
-                    ClientName = "Endalgo Native App (Code with PKCE)",
-
-                    RedirectUris = { "com.endalgo.app:/oauthredirect" },
-                    PostLogoutRedirectUris = { "com.endalgo.app:/oauthredirect" },
-                    AllowedCorsOrigins =     { "com.endalgo.app" },
-
-                    RequireConsent = false,
-                    RequireClientSecret = false,
-
-                    AllowedGrantTypes = GrantTypes.Code,
-                    RequirePkce = true,
-                    AllowedScopes =
-                    {
-                        IdentityServerConstants.StandardScopes.OpenId,
-                        IdentityServerConstants.StandardScopes.Profile,
-                        IdentityServerConstants.StandardScopes.Email,
-                        "endalgoapi",
-                        "endalgochat"
-                    },
-
-                    AllowOfflineAccess = true,
-                    RefreshTokenUsage = TokenUsage.ReUse,
-                    AccessTokenLifetime = 172800,
-                },
-                new Client
-                {
-                    ClientId = "Test.Client",
-                    ClientName = "LDSCore",
-                    AllowedGrantTypes = new[] {GrantType.ResourceOwnerPassword,"external"},
-                    ClientSecrets =
-                    {
-                        new Secret("secret".Sha256())
-                    },
-                    AllowedScopes = {
-                        IdentityServerConstants.StandardScopes.OpenId,
-                        IdentityServerConstants.StandardScopes.Profile,
-                        IdentityServerConstants.StandardScopes.Email,
-                        "endalgoapi",
-                        "endalgochat",
-                        "Test.WebApi"
-                    },
-                    AccessTokenType = AccessTokenType.Jwt,
-                    AlwaysIncludeUserClaimsInIdToken = true,
-                    AccessTokenLifetime = 86400,
-                    AllowOfflineAccess = true,
-                    IdentityTokenLifetime = 86400,
-                    AlwaysSendClientClaims = true,
-                    Enabled = true,
                 }
             };
         }
