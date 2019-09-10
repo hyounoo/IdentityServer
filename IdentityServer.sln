@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EndalgoApi", "EndalgoApi\En
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Client\Client.csproj", "{839A0C1A-03AF-4833-B312-CBAD36706C54}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ro.Client", "ro.Client\ro.Client.csproj", "{1ADB04D8-6EAC-4472-8D2A-896C828D0D1D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{839A0C1A-03AF-4833-B312-CBAD36706C54}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{839A0C1A-03AF-4833-B312-CBAD36706C54}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{839A0C1A-03AF-4833-B312-CBAD36706C54}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1ADB04D8-6EAC-4472-8D2A-896C828D0D1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1ADB04D8-6EAC-4472-8D2A-896C828D0D1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1ADB04D8-6EAC-4472-8D2A-896C828D0D1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1ADB04D8-6EAC-4472-8D2A-896C828D0D1D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
